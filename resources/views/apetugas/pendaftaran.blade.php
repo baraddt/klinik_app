@@ -99,9 +99,8 @@
 
         <script>
             let counter = 1; // Counter for ID
-            let editingRow = null; // Store the row being edited
+            let editingRow = null; 
 
-            // Function to open modal
             function openModal(id, title = '') {
                 document.getElementById(id).classList.remove('hidden');
                 if (title && document.getElementById('modalTitle')) {
@@ -109,7 +108,6 @@
                 }
 
                 if (editingRow) {
-                    // If editing, populate the form with existing data
                     document.getElementById('nama_pasien').value = editingRow.querySelector('.nama-pasien').textContent;
                     document.getElementById('email_pasien').value = editingRow.querySelector('.email').textContent;
                     document.getElementById('jenis_kelamin').value = editingRow.querySelector('.jenis-kelamin').textContent;
@@ -118,10 +116,8 @@
                 }
             }
 
-            // Function to close modal
             function closeModal() {
                 document.querySelectorAll('.fixed.inset-0').forEach(modal => modal.classList.add('hidden'));
-                // Clear form fields
                 document.getElementById('nama_pasien').value = '';
                 document.getElementById('email_pasien').value = '';
                 document.getElementById('jenis_kelamin').value = '';
@@ -130,7 +126,6 @@
                 editingRow = null;
             }
 
-            // Function to add data to table
             document.getElementById('formPatient').addEventListener('submit', function (e) {
                 e.preventDefault();
 
@@ -143,18 +138,16 @@
                 const table = document.getElementById('patientTable').getElementsByTagName('tbody')[0];
 
                 if (editingRow) {
-                    // If editing, update the row with the new data
                     editingRow.querySelector('.nama-pasien').textContent = namaPasien;
                     editingRow.querySelector('.email').textContent = email;
                     editingRow.querySelector('.jenis-kelamin').textContent = jenisKelamin;
                     editingRow.querySelector('.jenis-kunjungan').textContent = jenisKunjungan;
                     editingRow.querySelector('.tanggal-kunjungan').textContent = tanggalKunjungan;
                     closeModal();
-                    updateTable(); // Update table after edit
+                    updateTable(); 
                     return;
                 }
 
-                // Otherwise, add a new row
                 const newRow = table.insertRow();
                 newRow.innerHTML = `
                 <td class="p-3">#P${counter++}</td>
@@ -169,40 +162,35 @@
                 </td>
                 `;
 
-                // Clear form fields after submission
                 document.getElementById('nama_pasien').value = '';
                 document.getElementById('email_pasien').value = '';
                 document.getElementById('jenis_kelamin').value = '';
                 document.getElementById('jenis_kunjungan').value = '';
                 document.getElementById('tanggal_kunjungan').value = '';
 
-                // Close the modal
                 closeModal();
-                updateTable(); // Update table after adding a new row
+                updateTable();
             });
 
-            // Function to edit a row
             function editRow(button) {
                 editingRow = button.closest('tr');
                 openModal('patientModal', 'Edit Pasien');
             }
 
-            // Function to delete a row
             function deleteRow(button) {
                 const row = button.closest('tr');
                 row.remove();
-                updateTable(); // Update table after deleting a row
+                updateTable();
             }
 
-            // Function to update the table and show "Data pasien kosong" if no rows exist
             function updateTable() {
                 const tableBody = document.getElementById('patientTableBody');
                 const noDataRow = document.getElementById('noDataRow');
 
                 if (tableBody.rows.length > 0) {
-                    noDataRow.classList.add('hidden'); // Hide message if there are rows
+                    noDataRow.classList.add('hidden'); 
                 } else {
-                    noDataRow.classList.remove('hidden'); // Show message if there are no rows
+                    noDataRow.classList.remove('hidden'); 
                 }
             }
         </script>

@@ -18,7 +18,6 @@
                 </select>
             </div>
 
-            <!-- Tabel Tagihan -->
             <div id="tagihanPasien" class="mb-6 hidden">
                 <h2 class="font-semibold text-lg mb-2">Tagihan Pasien</h2>
                 <table class="w-full text-sm border-collapse">
@@ -30,12 +29,10 @@
                         </tr>
                     </thead>
                     <tbody id="tagihanDetails">
-                        <!-- Tagihan pasien akan ditampilkan di sini -->
                     </tbody>
                 </table>
             </div>
 
-            <!-- Total Pembayaran -->
             <div id="totalPembayaran" class="mb-6 hidden">
                 <h2 class="font-semibold text-lg mb-2">Total Pembayaran</h2>
                 <div class="flex justify-between items-center">
@@ -44,7 +41,6 @@
                 </div>
             </div>
 
-            <!-- Pembayaran -->
             <div id="pembayaranForm" class="mb-6 hidden">
                 <h2 class="font-semibold text-lg mb-2">Pembayaran</h2>
                 <div class="flex justify-between items-center">
@@ -61,7 +57,7 @@
                 </div>
             </div>
 
-            <!-- Status Pembayaran -->
+            
             <div id="statusPembayaran" class="hidden mt-6">
                 <h2 class="font-semibold text-lg mb-2">Status Pembayaran</h2>
                 <p id="status" class="text-green-500 text-lg font-semibold">Pembayaran selesai.</p>
@@ -70,7 +66,7 @@
     </div>
 
     <script>
-        // Dummy Data Tagihan Pasien (Tindakan, Obat dan Biaya)
+   
         const pasienData = {
             1: {
                 nama: 'Asep',
@@ -107,7 +103,7 @@
             }
         };
 
-        // Fungsi untuk menampilkan tagihan pasien
+       
         function tampilkanTagihan(pasienId) {
             const tagihanPasienDiv = document.getElementById('tagihanPasien');
             const tagihanDetails = document.getElementById('tagihanDetails');
@@ -119,7 +115,6 @@
             totalPembayaranDiv.classList.remove('hidden');
             pembayaranForm.classList.remove('hidden');
 
-            // Reset data
             tagihanDetails.innerHTML = '';
             let totalBiaya = 0;
 
@@ -139,23 +134,20 @@
             }
         }
 
-        // Fungsi untuk memproses pembayaran
         function prosesPembayaran() {
             const bayar = parseInt(document.getElementById('bayar').value, 10);
             const total = parseInt(document.getElementById('totalAmount').textContent.replace('Rp. ', '').replace('.', ''), 10);
 
             if (bayar >= total) {
-                // Pembayaran selesai
                 const statusPembayaranDiv = document.getElementById('statusPembayaran');
                 document.getElementById('status').textContent = 'Pembayaran selesai.';
                 statusPembayaranDiv.classList.remove('hidden');
-                resetForm(); // Reset form pembayaran
+                resetForm();
             } else {
                 alert('Jumlah bayar tidak cukup!');
             }
         }
 
-        // Fungsi untuk mereset form
         function resetForm() {
             document.getElementById('pasien').value = '';
             document.getElementById('bayar').value = '';

@@ -5,14 +5,12 @@
         <div class="bg-white p-6 rounded-lg shadow">
             <div class="flex justify-between items-center mb-6">
                 <h1 class="text-xl font-semibold">Laporan Klinik</h1>
-                <!-- Tombol Generate PDF -->
                 <button onclick="window.open('{{ route('laporan.generatePDF') }}', '_blank')"
                     class="bg-red-500 text-white px-6 py-3 rounded hover:bg-blue-600">
                     Generate to PDF
                 </button>
             </div>
 
-            <!-- Pilih Periode -->
             <div class="mb-6">
                 <label for="periode" class="block text-gray-700">Pilih Periode</label>
                 <select id="periode"
@@ -22,19 +20,16 @@
                 </select>
             </div>
 
-            <!-- Grafik Kunjungan Pasien -->
             <div class="mb-6">
                 <h2 class="font-semibold text-lg mb-2">Jumlah Kunjungan Pasien</h2>
                 <canvas id="kunjunganPasienChart" width="400" height="200"></canvas>
             </div>
 
-            <!-- Grafik Jenis Tindakan -->
             <div class="mb-6">
                 <h2 class="font-semibold text-lg mb-2">Jenis Tindakan Terbanyak</h2>
                 <canvas id="tindakanChart" width="400" height="200"></canvas>
             </div>
 
-            <!-- Grafik Obat yang Paling Sering Diresepkan -->
             <div class="mb-6">
                 <h2 class="font-semibold text-lg mb-2">Obat yang Paling Sering Diresepkan</h2>
                 <canvas id="obatChart" width="400" height="200"></canvas>
@@ -42,16 +37,13 @@
         </div>
     </div>
 
-    <!-- Script untuk Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Script untuk jsPDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <script>
-        // Dummy Data
         const dataKunjunganPasien = {
-            hari: [5, 10, 15, 20, 25, 30, 35], // Kunjungan per hari (dummy data)
-            bulan: [120, 150, 180, 200, 220, 250, 270], // Kunjungan per bulan (dummy data)
+            hari: [5, 10, 15, 20, 25, 30, 35],
+            bulan: [120, 150, 180, 200, 220, 250, 270], 
         };
 
         const dataTindakan = {
@@ -70,7 +62,6 @@
             'Ibuprofen': 60
         };
 
-        // Fungsi untuk membuat grafik jumlah kunjungan pasien
         function renderKunjunganPasienChart(period) {
             const ctx = document.getElementById('kunjunganPasienChart').getContext('2d');
             const chartData = {
@@ -98,7 +89,6 @@
                 });
         }
 
-        // Fungsi untuk membuat grafik jenis tindakan terbanyak
         function renderTindakanChart() {
             const ctx = document.getElementById('tindakanChart').getContext('2d');
             const chartData = {
@@ -122,7 +112,6 @@
             });
         }
 
-        // Fungsi untuk membuat grafik obat yang paling sering diresepkan
         function renderObatChart() {
             const ctx = document.getElementById('obatChart').getContext('2d');
             const chartData = {
@@ -146,7 +135,6 @@
             });
         }
 
-        // Fungsi untuk generate PDF
         function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -161,17 +149,14 @@
             doc.text("Obat yang Paling Sering Diresepkan", 14, 220);
             doc.addImage(document.getElementById('obatChart').toDataURL(), 'JPEG', 14, 225, 180, 90);
 
-            // Save the PDF
             doc.save('laporan_klinik.pdf');
         }
 
-        // Event listener untuk memilih periode
         document.getElementById('periode').addEventListener('change', function () {
             const periode = this.value;
             renderKunjunganPasienChart(periode);
         });
 
-        // Render grafik awal dengan periode per hari
         renderKunjunganPasienChart('hari');
         renderTindakanChart();
         renderObatChart();

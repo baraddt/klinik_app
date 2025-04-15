@@ -17,15 +17,12 @@
                 </select>
             </div>
 
-            <!-- Riwayat Kunjungan dan Keluhan -->
             <div id="riwayatKunjungan" class="mb-6 hidden">
                 <h2 class="font-semibold text-lg mb-2">Riwayat Kunjungan</h2>
                 <ul id="listKunjungan" class="list-disc pl-5">
-                    <!-- Riwayat kunjungan akan ditampilkan di sini -->
                 </ul>
             </div>
 
-            <!-- Tindakan dan Obat -->
             <div class="mb-6">
                 <label for="tindakan" class="block text-gray-700">Tindakan Medis</label>
                 <textarea id="tindakan" rows="4"
@@ -69,7 +66,6 @@
     </div>
 
     <script>
-        // Dummy Data Pasien dengan Riwayat Kunjungan dan Keluhan
         const pasienData = {
             1: {
                 nama: 'Asep',
@@ -106,14 +102,13 @@
             }
         };
 
-        // Fungsi untuk menampilkan riwayat kunjungan dan keluhan
         function tampilkanRiwayat(pasienId) {
             const riwayatKunjunganDiv = document.getElementById('riwayatKunjungan');
             const listKunjungan = document.getElementById('listKunjungan');
             riwayatKunjunganDiv.classList.remove('hidden');
 
             if (pasienId) {
-                listKunjungan.innerHTML = ''; // Reset list
+                listKunjungan.innerHTML = ''; 
                 const pasien = pasienData[pasienId];
                 pasien.riwayat.forEach((kunjungan) => {
                     const li = document.createElement('li');
@@ -123,8 +118,7 @@
             }
         }
 
-        // Fungsi untuk menyimpan tindakan & obat
-        let tindakanData = []; // Simpan data tindakan & obat
+        let tindakanData = []; 
         function simpanTindakan() {
             const pasien = document.getElementById('pasien').value;
             const tindakan = document.getElementById('tindakan').value;
@@ -139,32 +133,29 @@
                     tanggal: tanggal
                 };
 
-                tindakanData.push(tindakanObj); // Simpan data tindakan
+                tindakanData.push(tindakanObj); 
 
-                // Reset form setelah simpan
                 resetForm();
 
-                updateRiwayat(); // Update riwayat tindakan
+                updateRiwayat();
             } else {
                 alert('Semua data harus diisi!');
             }
         }
 
-        // Fungsi untuk mereset form
         function resetForm() {
             document.getElementById('pasien').value = '';
             document.getElementById('tindakan').value = '';
             document.getElementById('obat').value = '';
         }
 
-        // Fungsi untuk update riwayat tindakan
         function updateRiwayat() {
             const riwayatTindakanTable = document.getElementById('riwayatTindakan');
             const noDataRow = document.getElementById('noDataRow');
-            riwayatTindakanTable.innerHTML = ''; // Reset tabel
+            riwayatTindakanTable.innerHTML = ''; 
 
             if (tindakanData.length > 0) {
-                noDataRow.classList.add('hidden'); // Sembunyikan jika ada data
+                noDataRow.classList.add('hidden'); 
 
                 tindakanData.forEach((item) => {
                     const row = riwayatTindakanTable.insertRow();
@@ -176,7 +167,7 @@
                             `;
                 });
             } else {
-                noDataRow.classList.remove('hidden'); // Tampilkan jika tidak ada data
+                noDataRow.classList.remove('hidden'); 
             }
         }
     </script>
